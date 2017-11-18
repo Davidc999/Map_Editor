@@ -4,10 +4,12 @@ import com.Components.MapViewPanel;
 import com.Components.TilePalette;
 import com.Tile;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class MapPanelMouseListener extends MouseAdapter {
+public class MapPanelMouseListener extends MouseAdapter implements MouseMotionListener{
 
     private MapViewPanel mapViewPanel;
 
@@ -15,6 +17,20 @@ public class MapPanelMouseListener extends MouseAdapter {
     {
         super();
         this.mapViewPanel = mapViewPanel;
+    }
+
+    public void mouseMoved(MouseEvent e){}
+
+    public void mouseDragged(MouseEvent e){
+        if(SwingUtilities.isLeftMouseButton(e)) {
+            mapViewPanel.setTile(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), TilePalette.selectedIndex);
+        }
+        else if(SwingUtilities.isRightMouseButton(e)){
+            mapViewPanel.setTile(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), 0);
+        }
+
+
+        mapViewPanel.repaint();
     }
 
     public void mouseClicked(MouseEvent e)

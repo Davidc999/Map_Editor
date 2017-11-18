@@ -15,7 +15,7 @@ public class TilePalette extends JPanel {
     public int ySelected;
     public static int selectedIndex;
 
-    private SpriteSheet spriteSheet;
+    public SpriteSheet spriteSheet;
     private BufferedImage image;
     private int[] pixels;
 
@@ -52,9 +52,9 @@ public class TilePalette extends JPanel {
     {
         widthInTiles = Tile.pixelToTile(width);
         heightInTIles = Tile.pixelToTile(height);
-        for(int yss=0; yss < spriteSheet.HEIGHTINTILES ; yss++){
-            for(int xss=0; xss < spriteSheet.WIDTHINTILES ; xss++){
-                Tile.copyTile(pixels,(xss+yss*spriteSheet.WIDTHINTILES) % widthInTiles,(xss+yss*spriteSheet.WIDTHINTILES) / widthInTiles,Tile.tileToPixel(widthInTiles),spriteSheet.getTile(xss,yss));
+        for(int yss = 0; yss < spriteSheet.heightintiles; yss++){
+            for(int xss = 0; xss < spriteSheet.widthintiles; xss++){
+                Tile.copyTile(pixels,(xss+yss*spriteSheet.widthintiles) % widthInTiles,(xss+yss*spriteSheet.widthintiles) / widthInTiles,Tile.tileToPixel(widthInTiles),spriteSheet.getTile(xss,yss));
             }
         }
     }

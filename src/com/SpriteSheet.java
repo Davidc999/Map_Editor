@@ -6,11 +6,11 @@ import java.io.IOException;
 
 public class SpriteSheet {
     private String path;
-    public final int WIDTH;
-    public final int WIDTHINTILES;
-    public final int HEIGHT;
-    public final int HEIGHTINTILES;
-    public final int TILESIZE;
+    public int width;
+    public int widthintiles;
+    public int height;
+    public int heightintiles;
+    public int tilesize;
     public int[] pixels;
 
     public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32,32,32);
@@ -19,11 +19,22 @@ public class SpriteSheet {
 
     public SpriteSheet(String path, int width, int height, int tilesize){
         this.path = path;
-        HEIGHT = height;
-        WIDTH = width;
-        TILESIZE = tilesize;
-        HEIGHTINTILES = height / TILESIZE;
-        WIDTHINTILES = width / TILESIZE;
+        this.height = height;
+        this.width = width;
+        this.tilesize = tilesize;
+        heightintiles = height / this.tilesize;
+        widthintiles = width / this.tilesize;
+        pixels = new int[width * height];
+        load();
+    }
+
+    public void changeSprite(String path, int width, int height, int tilesize){
+        this.path = path;
+        this.height = height;
+        this.width = width;
+        this.tilesize = tilesize;
+        heightintiles = height / this.tilesize;
+        widthintiles = width / this.tilesize;
         pixels = new int[width * height];
         load();
     }
@@ -42,11 +53,11 @@ public class SpriteSheet {
 
     // Get a tile by (x,y)
     public int[] getTile(int xInTiles, int yInTiles){
-        int tilePixels[] = new int[TILESIZE*TILESIZE];
+        int tilePixels[] = new int[tilesize * tilesize];
 
-        for(int scanY = 0; scanY < TILESIZE; scanY++){
-            for(int scanX = 0; scanX < TILESIZE; scanX++){
-                tilePixels[scanX + scanY * TILESIZE] = pixels[(scanX+xInTiles*TILESIZE) + (scanY+yInTiles*TILESIZE) * WIDTH];
+        for(int scanY = 0; scanY < tilesize; scanY++){
+            for(int scanX = 0; scanX < tilesize; scanX++){
+                tilePixels[scanX + scanY * tilesize] = pixels[(scanX+xInTiles* tilesize) + (scanY+yInTiles* tilesize) * width];
             }
         }
         return tilePixels;
@@ -54,11 +65,11 @@ public class SpriteSheet {
 
     //Get a tile by serialnumber
     public int[] getTile(int serialNumber){
-        int tilePixels[] = new int[TILESIZE*TILESIZE];
+        int tilePixels[] = new int[tilesize * tilesize];
 
-        for(int scanY = 0; scanY < TILESIZE; scanY++){
-            for(int scanX = 0; scanX < TILESIZE; scanX++){
-                tilePixels[scanX + scanY * TILESIZE] = pixels[(scanX+ (serialNumber % WIDTHINTILES) *TILESIZE) + (scanY+ (serialNumber/WIDTHINTILES) *TILESIZE) * WIDTH];
+        for(int scanY = 0; scanY < tilesize; scanY++){
+            for(int scanX = 0; scanX < tilesize; scanX++){
+                tilePixels[scanX + scanY * tilesize] = pixels[(scanX+ (serialNumber % widthintiles) * tilesize) + (scanY+ (serialNumber/ widthintiles) * tilesize) * width];
             }
         }
         return tilePixels;

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.nio.ByteBuffer;
 
 public class MapViewPanel extends JPanel {
 
@@ -24,7 +25,7 @@ public class MapViewPanel extends JPanel {
         this.widthInTiles = widthInTiles;
 
         spriteSheet = SpriteSheet.overWorld;
-        tilesize = spriteSheet.TILESIZE;
+        tilesize = spriteSheet.tilesize;
 
         tiles = new int[widthInTiles * heightInTiles];
 
@@ -33,6 +34,7 @@ public class MapViewPanel extends JPanel {
     }
 
     public void setTile(int xTile, int yTile, int tileIndex){
+        if(xTile + yTile*widthInTiles >= tiles.length) return;
         tiles[xTile + yTile*widthInTiles] = tileIndex;
     }
 
@@ -44,8 +46,17 @@ public class MapViewPanel extends JPanel {
                Tile.copyTile(pixels,xTile,yTile,widthInTiles*tilesize,spriteSheet.getTile(tiles[xTile + yTile*heightInTiles]));
             }
         }
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
         //remove current graphics that we are done with
         g.dispose();
+    }
+
+    public ByteBuffer tilesToByteBuffer()
+    {
+        ByteBuffer bb = ByteBuffer.allocate(tiles.length);
+        for(int i = 0; i < tiles.length; i++){
+            bb.putInt(tiles[i]);
+        }
+        return bb;
     }
 }
