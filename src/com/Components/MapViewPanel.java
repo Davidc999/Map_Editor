@@ -29,6 +29,9 @@ public class MapViewPanel extends JPanel {
 
         tiles = new int[widthInTiles * heightInTiles];
 
+        for (int i=0; i < tiles.length ; i++)
+            tiles[i] = 70;
+
         image = new BufferedImage(widthInTiles * tilesize, heightInTiles * tilesize, BufferedImage.TYPE_INT_ARGB);
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     }
@@ -53,7 +56,7 @@ public class MapViewPanel extends JPanel {
 
     public ByteBuffer tilesToByteBuffer()
     {
-        ByteBuffer bb = ByteBuffer.allocate(tiles.length);
+        ByteBuffer bb = ByteBuffer.allocate(tiles.length * Integer.SIZE/Byte.SIZE);
         for(int i = 0; i < tiles.length; i++){
             bb.putInt(tiles[i]);
         }

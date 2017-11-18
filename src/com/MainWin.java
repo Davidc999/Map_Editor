@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -71,7 +72,10 @@ public class MainWin {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 try(ByteChannel sbc = Files.newByteChannel(file.toPath(), StandardOpenOption.CREATE,StandardOpenOption.WRITE)) {
-                    sbc.write(mapViewPanel1.tilesToByteBuffer());
+                    ByteBuffer mapData =  mapViewPanel1.tilesToByteBuffer();
+                    mapData.rewind();
+                    sbc.write(mapData);
+                    sbc.close();
                 }
                 catch (IOException x){
                     System.out.println("Can't save for some reason!");
