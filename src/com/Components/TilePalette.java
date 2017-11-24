@@ -25,7 +25,7 @@ public class TilePalette extends JPanel {
 
     private int[] solid;
     private int widthInTiles;
-    private int heightInTIles;
+    private int heightInTiles;
     private int width;
     private int height;
 
@@ -36,9 +36,9 @@ public class TilePalette extends JPanel {
         this.width = width;
         this.height = height;
         widthInTiles = Tile.pixelToTile(width);
-        heightInTIles = Tile.pixelToTile(height);
+        heightInTiles = Tile.pixelToTile(height);
 
-        solid = new int[widthInTiles * heightInTIles];
+        solid = new int[widthInTiles * heightInTiles];
 
         image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
@@ -73,7 +73,7 @@ public class TilePalette extends JPanel {
     public void repackImage()
     {
         widthInTiles = Tile.pixelToTile(width);
-        heightInTIles = Tile.pixelToTile(height);
+        heightInTiles = Tile.pixelToTile(height);
         for(int yss = 0; yss < spriteSheet.heightintiles; yss++){
             for(int xss = 0; xss < spriteSheet.widthintiles; xss++){
                 Tile.copyTile(pixels,(xss+yss*spriteSheet.widthintiles) % widthInTiles,(xss+yss*spriteSheet.widthintiles) / widthInTiles,Tile.tileToPixel(widthInTiles),spriteSheet.getTile(xss,yss),spriteSheet.alphacolor);
@@ -91,7 +91,7 @@ public class TilePalette extends JPanel {
         g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
         g.setColor(Color.black);
         for(int x=0; x<widthInTiles; x++) {
-            for(int y=0; y<heightInTIles; y++) {
+            for(int y = 0; y< heightInTiles; y++) {
                 g.drawRect(Tile.tileToPixel(x), Tile.tileToPixel(y), Tile.tileToPixel(1)-1, Tile.tileToPixel(1)-1);
             }
         }

@@ -122,10 +122,26 @@ public class MainWin {
         });
 
         fileMenu.add(sMenuItem);
+        fileMenu.add(oMenuItem);
         fileMenu.add(eMenuItem);
 
+        JMenu viewMenu = new JMenu("View");
+        viewMenu.setMnemonic(KeyEvent.VK_V);
+
+        //Exit
+        JMenuItem gMenuItem = new JMenuItem("Grid On");
+        gMenuItem.setMnemonic(KeyEvent.VK_G);
+        gMenuItem.setToolTipText("Display grid on map viewer");
+        gMenuItem.addActionListener((ActionEvent event) -> {
+            mapViewPanel1.toggleGrid();
+            mapViewPanel1.repaint();
+        });
+
+        viewMenu.add(gMenuItem);
 
         menubar.add(fileMenu);
+        menubar.add(viewMenu);
+
 
 
 

@@ -28,6 +28,7 @@ public class RadioButtonListener  implements ActionListener{
         }
         if (e.getActionCommand().equals("Assign Solid")){
             MainWin.inputMode = 2;
+            palette.deselect();
             palette.repaint();
         }
 
