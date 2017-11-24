@@ -91,5 +91,25 @@ public class TilePalette extends JPanel {
         //remove current graphics that we are done with
         g.dispose();
     }
+    
+    private ditherTile(int xTile, int yTile, Color color, Graphics graphics) // Color format is 0xAARRGGBB (I think ;) )
+    {
+        int x1 = x2 = Tile.tileToPixel(xTile);
+        int y1 = y2 = Tile.tileToPixel(yTile) + Tile.tileToPixel(1)-1; // Bottom left corner
+        
+        g.setColor(color);
+        for(y1 >= 0 ; y1-=2, x2+= 2){
+                g.drawLine(x1,y1,x2,y2);
+        }
+        
+        x1 = y1 % 2;
+        y1 = 0;
+        y2 = 2*(Tile.tileToPixel(1)-1) - y2;
+        x2 = Tile.tileToPixel(1)-1; // Top left to bottom right
+        
+        for(y2 >= 0 ; y2-=2, x1+= 2){
+                g.drawLine(x1,y1,x2,y2);
+        }
+    }
 
 }
