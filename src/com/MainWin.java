@@ -42,10 +42,11 @@ public class MainWin {
     private void createUIComponents() {
         imagePanel1 = new ImagePanel(16,16);
         mapViewPanel1 = new MapViewPanel(50,50);
-        tilePalette1 = new TilePalette(192,336);
-        tilePalette1.repackImage();
+        tilePalette1 = new TilePalette(SpriteSheet.overWorld.width,SpriteSheet.overWorld.height);
+        tilePalette1.setPreferredSize(new Dimension(336,144));
         scrollPane = new JScrollPane(mapViewPanel1);
         mapViewPanel1.setPreferredSize(new Dimension(50*16,50*16));
+
     }
 
     private void createMenus(){
@@ -54,6 +55,7 @@ public class MainWin {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
+        //Exit
         JMenuItem eMenuItem = new JMenuItem("Exit");
         eMenuItem.setMnemonic(KeyEvent.VK_E);
         eMenuItem.setToolTipText("Exit application");
@@ -62,6 +64,7 @@ public class MainWin {
             SpriteSheet.overWorld.changeSprite("/textures/malewizard.png",128,128,16);
         });
 
+        //Save
         JMenuItem oMenuItem = new JMenuItem("Save");
         oMenuItem.setMnemonic(KeyEvent.VK_S);
         oMenuItem.setToolTipText("Save map");

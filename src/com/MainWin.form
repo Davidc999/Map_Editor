@@ -20,7 +20,7 @@
           <grid id="6b7ef" layout-manager="GridLayoutManager" row-count="2" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <tabbedpane title="Untitled"/>
+              <tabbedpane title="Layer 1"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -30,14 +30,6 @@
                   <grid row="0" column="1" row-span="1" col-span="6" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
-              <component id="3c36a" class="com.Components.TilePalette" binding="tilePalette1" custom-create="true">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="7" vsize-policy="3" hsize-policy="3" anchor="10" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="192" height="336"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
               <component id="423b" class="com.Components.ImagePanel" binding="imagePanel1" custom-create="true" default-binding="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
@@ -46,7 +38,29 @@
                 </constraints>
                 <properties/>
               </component>
+              <scrollpane id="426a2">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="7" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="36d2" class="com.Components.TilePalette" binding="tilePalette1" custom-create="true" default-binding="true">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
+          </grid>
+          <grid id="8ca9b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Layer 2"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
           </grid>
         </children>
       </tabbedpane>

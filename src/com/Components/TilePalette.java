@@ -30,9 +30,12 @@ public class TilePalette extends JPanel {
         spriteSheet = SpriteSheet.overWorld;
         this.width = width;
         this.height = height;
+        widthInTiles = Tile.pixelToTile(width);
+        heightInTIles = Tile.pixelToTile(height);
         image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
+        load();
         //image =  ImageIO.read(TilePalette.class.getResource("/textures/malewizard.png"));
 
     }
@@ -46,6 +49,13 @@ public class TilePalette extends JPanel {
 
     public void deselect(){
         selected = false;
+    }
+
+    private void load()
+    {
+        for (int i=0; i < pixels.length; i++){
+            pixels[i] = spriteSheet.pixels[i];
+        }
     }
 
     public void repackImage()

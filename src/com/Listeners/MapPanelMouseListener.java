@@ -35,12 +35,17 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
 
     public void mouseClicked(MouseEvent e)
     {
-        if(e.getButton() == 1 ) {
-            mapViewPanel.setTile(Tile.pixelToTile(e.getX()),Tile.pixelToTile(e.getY()),TilePalette.selectedIndex);
+        int mod = e.getModifiersEx();
+        if (mod == MouseEvent.SHIFT_DOWN_MASK){
+            //TODO: Fill!
+            mapViewPanel.paintFill(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), TilePalette.selectedIndex);
         }
-        else
-        {
-            mapViewPanel.setTile(Tile.pixelToTile(e.getX()),Tile.pixelToTile(e.getY()),0);
+        else {
+            if (e.getButton() == 1) {
+                mapViewPanel.setTile(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), TilePalette.selectedIndex);
+            } else {
+                mapViewPanel.setTile(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), 0);
+            }
         }
 
         mapViewPanel.repaint();

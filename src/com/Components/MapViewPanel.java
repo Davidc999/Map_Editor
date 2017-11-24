@@ -41,6 +41,24 @@ public class MapViewPanel extends JPanel {
         tiles[xTile + yTile*widthInTiles] = tileIndex;
     }
 
+    public void paintFill(int xTile, int yTile, int tileIndex){
+        if(xTile + yTile*widthInTiles >= tiles.length) return;
+        if(tiles[xTile + yTile*widthInTiles] == tileIndex) return;
+
+        paintFillRecourse(xTile,yTile,tileIndex,tiles[xTile+yTile*widthInTiles]);
+    }
+
+    private void paintFillRecourse(int x, int y, int targetTile, int sourceTile){
+        if((x<0) || (y<0) || (y==heightInTiles) || (x==widthInTiles)) return;
+        if((tiles[x+y*widthInTiles]!=sourceTile) || (tiles[x + y*widthInTiles] == targetTile)) return;
+
+        tiles[x+y*widthInTiles] = targetTile;
+        paintFillRecourse(x+1,y,targetTile,sourceTile);
+        paintFillRecourse(x-1,y,targetTile,sourceTile);
+        paintFillRecourse(x,y+1,targetTile,sourceTile);
+        paintFillRecourse(x,y-1,targetTile,sourceTile);
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
