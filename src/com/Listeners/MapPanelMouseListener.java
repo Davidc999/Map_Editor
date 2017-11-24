@@ -2,6 +2,7 @@ package com.Listeners;
 
 import com.Components.MapViewPanel;
 import com.Components.TilePalette;
+import com.MainWin;
 import com.Tile;
 
 import javax.swing.*;
@@ -37,7 +38,6 @@ public class MapPanelMouseListener extends MouseAdapter implements MouseMotionLi
     {
         int mod = e.getModifiersEx();
         if (mod == MouseEvent.SHIFT_DOWN_MASK){
-            //TODO: Fill!
             mapViewPanel.paintFill(Tile.pixelToTile(e.getX()), Tile.pixelToTile(e.getY()), TilePalette.selectedIndex);
         }
         else {

@@ -13,15 +13,18 @@ public class SpriteSheet {
     public int tilesize;
     public int[] pixels;
 
-    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32,32,32);
-    public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128,128,32);
-    public static SpriteSheet overWorld = new SpriteSheet("/textures/overworld.png",336,144,16);
+    public int alphacolor;
 
-    public SpriteSheet(String path, int width, int height, int tilesize){
+    //public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png",32,32,32, );
+    //public static SpriteSheet maleWizard = new SpriteSheet("/textures/malewizard.png",128,128,32,);
+    public static SpriteSheet overWorld = new SpriteSheet("/textures/overworld.png",336,144,16, 0);
+
+    public SpriteSheet(String path, int width, int height, int tileSize, int alphaColor){
         this.path = path;
         this.height = height;
         this.width = width;
-        this.tilesize = tilesize;
+        this.tilesize = tileSize;
+        this.alphacolor = alphaColor;
         heightintiles = height / this.tilesize;
         widthintiles = width / this.tilesize;
         pixels = new int[width * height];
@@ -67,14 +70,26 @@ public class SpriteSheet {
     public int[] getTile(int serialNumber){
         int tilePixels[] = new int[tilesize * tilesize];
 
-        for(int scanY = 0; scanY < tilesize; scanY++){
-            for(int scanX = 0; scanX < tilesize; scanX++){
-                tilePixels[scanX + scanY * tilesize] = pixels[(scanX+ (serialNumber % widthintiles) * tilesize) + (scanY+ (serialNumber/ widthintiles) * tilesize) * width];
+        for (int i=0; i< tilePixels.length ; i++)
+            tilePixels[i] = alphacolor;
+    if (serialNumber >= 0 && serialNumber < widthintiles*heightintiles) {
+        for (int scanY = 0; scanY < tilesize; scanY++) {
+            for (int scanX = 0; scanX < tilesize; scanX++) {
+
+                tilePixels[scanX + scanY * tilesize] = pixels[(scanX + (serialNumber % widthintiles) * tilesize) + (scanY + (serialNumber / widthintiles) * tilesize) * width];
             }
         }
+    }
         return tilePixels;
     }
 
     //Get tile X by serialNumber
+    public int getTileX(int serialNumber) {
+        return serialNumber % widthintiles;
+    }
 
+    //Get tile Y by serialNumber
+    public int getTileY(int serialNumber) {
+        return serialNumber/ widthintiles;
+    }
 }

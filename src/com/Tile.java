@@ -16,9 +16,10 @@ public final class Tile {
         return xt*spriteSheet.tilesize;
     }
 
-    public static void copyTile(int[] targetPixels, int targetTileX, int targetTileY,int targetWidth,int[] tilePixels){
+    public static void copyTile(int[] targetPixels, int targetTileX, int targetTileY,int targetWidth,int[] tilePixels, int alphaColor){
         for(int y = 0; y < spriteSheet.tilesize; y++){
             for(int x = 0; x < spriteSheet.tilesize; x++){
+                if(tilePixels[ x +  y * spriteSheet.tilesize] != alphaColor)
                 targetPixels[(targetTileX*spriteSheet.tilesize + x) + (targetTileY*spriteSheet.tilesize + y) * targetWidth] = tilePixels[ x +  y * spriteSheet.tilesize];
             }
         }

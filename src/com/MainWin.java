@@ -4,6 +4,7 @@ import com.Components.ImagePanel;
 import com.Components.MapViewPanel;
 import com.Components.TilePalette;
 import com.Listeners.MapPanelMouseListener;
+import com.Listeners.RadioButtonListener;
 import com.Listeners.TilePaletteMouseListener;
 
 import javax.swing.*;
@@ -26,9 +27,15 @@ public class MainWin {
     private MapViewPanel mapViewPanel1;
     private JMenuBar menubar;
     private JScrollPane scrollPane;
+    private JRadioButton radioButtonLayer1;
+    private JRadioButton radioButtonLayer2;
+    private JRadioButton radioButtonSolid;
     private MapPanelMouseListener listen;
+    private RadioButtonListener radListen;
 
     final JFileChooser fc = new JFileChooser();
+
+    public static int inputMode;
 
 
     public MainWin()
@@ -36,6 +43,10 @@ public class MainWin {
         tilePalette1.addMouseListener(new TilePaletteMouseListener(tilePalette1, imagePanel1));
         mapViewPanel1.addMouseListener(listen = new MapPanelMouseListener(mapViewPanel1));
         mapViewPanel1.addMouseMotionListener(listen);
+
+        radioButtonLayer1.addActionListener(radListen = new RadioButtonListener(tilePalette1));
+        radioButtonLayer2.addActionListener(radListen );
+        radioButtonSolid.addActionListener(radListen );
         createMenus();
     }
 
@@ -65,11 +76,10 @@ public class MainWin {
         });
 
         //Save
-        JMenuItem oMenuItem = new JMenuItem("Save");
-        oMenuItem.setMnemonic(KeyEvent.VK_S);
-        oMenuItem.setToolTipText("Save map");
-        oMenuItem.addActionListener((ActionEvent event) -> {
-            //System.exit(0);
+        JMenuItem sMenuItem = new JMenuItem("Save");
+        sMenuItem.setMnemonic(KeyEvent.VK_S);
+        sMenuItem.setToolTipText("Save map");
+        sMenuItem.addActionListener((ActionEvent event) -> {
             int returnVal = fc.showSaveDialog(menubar);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -88,7 +98,30 @@ public class MainWin {
             }
         });
 
-        fileMenu.add(oMenuItem);
+        //Save Solidity
+        JMenuItem oMenuItem = new JMenuItem("Save Solidity");
+        oMenuItem.setMnemonic(KeyEvent.VK_O);
+        oMenuItem.setToolTipText("Save tile solidity");
+        oMenuItem.addActionListener((ActionEvent event) -> {
+            int returnVal = fc.showSaveDialog(menubar);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                try(ByteChannel sbc = Files.newByteChannel(file.toPath(), StandardOpenOption.CREATE,StandardOpenOption.WRITE)) {
+                    ByteBuffer mapData =  tilePalette1.solidToByteBuffer();
+                    mapData.rewind();
+                    sbc.write(mapData);
+                    sbc.close();
+                }
+                catch (IOException x){
+                    System.out.println("Can't save for some reason!");
+                }
+            } else {
+                // Do nothing, I guess
+            }
+        });
+
+        fileMenu.add(sMenuItem);
         fileMenu.add(eMenuItem);
 
 

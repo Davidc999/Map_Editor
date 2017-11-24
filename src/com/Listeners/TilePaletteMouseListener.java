@@ -2,6 +2,7 @@ package com.Listeners;
 
 import com.Components.ImagePanel;
 import com.Components.TilePalette;
+import com.MainWin;
 import com.SpriteSheet;
 import com.Tile;
 
@@ -22,7 +23,7 @@ public class TilePaletteMouseListener extends MouseAdapter{
 
     public void mouseClicked(MouseEvent e)
     {
-        if(e.getButton() == 1 ) {
+        if(e.getButton() == 1 && MainWin.inputMode != 2) {
             tilePalette.select(Tile.pixelToTile(e.getX()),Tile.pixelToTile(e.getY()));
 
             imagePanel.setImage(SpriteSheet.overWorld.getTile(tilePalette.getTileIndex(Tile.pixelToTile( e.getX() ),Tile.pixelToTile( e.getY() ))));
@@ -30,7 +31,13 @@ public class TilePaletteMouseListener extends MouseAdapter{
             tilePalette.repaint();
             imagePanel.repaint();
         }
-        else
+        else if(e.getButton() == 1){ // Solidify mode
+            tilePalette.deselect();
+            tilePalette.toggleSolidity(Tile.pixelToTile(e.getX()),Tile.pixelToTile(e.getY()));
+
+            tilePalette.repaint();
+        }
+        else if(e.getButton() != 1)
         {
             tilePalette.deselect();
             tilePalette.repaint();
